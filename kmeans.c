@@ -37,7 +37,11 @@ int main(int argc, char *argv[]) {
     int k, iter,n,d = 0, i = 0, j = 0, flag = 1, t = 0;
     double** centroids;
     int  *cluster;
-
+    if (argc < 2 || argc > 3)
+    {
+        printf("Invalid number of arguments!");
+        return 1;
+    }
     input_validation(argv[1]);
     k = atoi(argv[1]);
     if (argc == 2)
