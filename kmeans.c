@@ -27,6 +27,7 @@ int update_centroids(double**, int*, vector*,int,int,int);
 double euclidean_distance(double*, cord*, int);
 double euclidean_distance_new(double*, double*, int);
 void handle_memory_error(vector **, double **, int , int*) ;
+void input_validation(char* );
 
 
 
@@ -36,6 +37,8 @@ int main(int argc, char *argv[]) {
     int k, iter,n,d = 0, i = 0, j = 0, flag = 1, t = 0;
     double** centroids;
     int  *cluster;
+
+    input_validation(argv[1]);
     k = atoi(argv[1]);
     if (argc == 2)
     {
@@ -43,51 +46,12 @@ int main(int argc, char *argv[]) {
     }
     else
     {
-        i = 0;
-        if (argv[2][0] == '+')
-        {
-            i++;   
-        }
-        while(argv[2][i] != '\0')
-        {
-            if(argv[2][i] < '0' || argv[2][i] > '9')
-            {
-                if  (argv[2][i] == '.')
-                {
-                    i++;
-                    if (argv[2][i] != '0')
-                    {
-                        printf("Invalid maximum iteration!");
-                        return 0;
-                    }
-                    else
-                    {
-                        while(argv[2][i] != '\0')
-                        {
-                           if (argv[2][i] != '0')
-                           {
-                                 printf("Invalid maximum iteration!");
-                                 return 0;
-                           }
-                            i++;
-                        }
-                        break;
-                    }
-                }
-                else
-                {
-                    printf("Invalid maximum iteration!");
-                    return 0;
-                }
-
-            }
-            i++;
-        }
+        input_validation(argv[2]);       
         iter = atoi(argv[2]);
         if(!(iter>1 && iter<1000))
         {
             printf("Invalid maximum iteration!");
-            return 0;
+            return 1;
         }
     }
 
@@ -96,7 +60,7 @@ int main(int argc, char *argv[]) {
     if (!(k>1 && k<n))
     {
         printf("Invalid number of clusters!");
-        return 0;
+        return 1;
     }
     current_cord = head->cords;
     while (current_cord != NULL)
@@ -347,4 +311,50 @@ void handle_memory_error(vector **head, double **centroids, int k, int *cluster)
     }
     exit(1);
 }
+
+
+void input_validation(char* input)
+{
+   int i=0;
+        if (input[0] == '+')
+        {
+            i++;   
+        }
+        while(input[i] != '\0')
+        {
+            if(input[i] < '0' || input[i] > '9')
+            {
+                if  (input[i] == '.')
+                {
+                    i++;
+                    if (input[i] != '0')
+                    {
+                        printf("An Error Has Occurred\n");
+                        exit(1);
+                    }
+                    else
+                    {
+                        while(input[i] != '\0')
+                        {
+                           if (input[i] != '0')
+                           {
+                                 printf("An Error Has Occurred\n");
+                                 exit(1);
+                           }
+                            i++;
+                        }
+                        break;
+                    }
+                }
+                else
+                {
+                    printf("An Error Has Occurred\n");
+                    exit(1);
+                }
+
+            }
+            i++;
+        }
+}
+
 
