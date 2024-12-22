@@ -43,6 +43,46 @@ int main(int argc, char *argv[]) {
     }
     else
     {
+        i = 0;
+        if (argv[2][0] == '+')
+        {
+            i++;   
+        }
+        while(argv[2][i] != '\0')
+        {
+            if(argv[2][i] < '0' || argv[2][i] > '9')
+            {
+                if  (argv[2][i] == '.')
+                {
+                    i++;
+                    if (argv[2][i] != '0')
+                    {
+                        printf("Invalid maximum iteration!");
+                        return 0;
+                    }
+                    else
+                    {
+                        while(argv[2][i] != '\0')
+                        {
+                           if (argv[2][i] != '0')
+                           {
+                                 printf("Invalid maximum iteration!");
+                                 return 0;
+                           }
+                            i++;
+                        }
+                        break;
+                    }
+                }
+                else
+                {
+                    printf("Invalid maximum iteration!");
+                    return 0;
+                }
+
+            }
+            i++;
+        }
         iter = atoi(argv[2]);
         if(!(iter>1 && iter<1000))
         {
